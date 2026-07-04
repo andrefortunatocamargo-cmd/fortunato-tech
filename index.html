@@ -204,6 +204,30 @@
 
     @media (max-width: 768px) {
       .timeline-line { display: none; }
+
+      /* Esconder elementos decorativos flutuantes no mobile */
+      .float, .floatB, .float-d1, .float-d2 {
+        display: none;
+      }
+
+      /* Ajuste de padding nas seções */
+      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+
+      /* Produto card: visual side menor no mobile */
+      .product-card .relative.bg-gradient-to-br {
+        min-height: 200px !important;
+      }
+
+      /* Depoimento padding */
+      .rounded-2xl.p-8 { padding: 1.25rem; }
+
+      /* Clientes responsivo */
+      .client-card { width: 100%; }
+    }
+
+    /* Subtext mobile */
+    @media (max-width: 640px) {
+      .hero-subtext { font-size: 1rem; }
     }
   </style>
 </head>
@@ -328,23 +352,19 @@
     <div class="absolute bottom-24 right-1/3 w-2 h-2 rounded-full bg-gold/60 floatB"></div>
     <div class="absolute top-1/3 right-16 w-7 h-7 rounded-full border-2 border-surface-light float-d1"></div>
 
-    <!-- Large spinning ring -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/3 spin-slow pointer-events-none"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-gold/5 pointer-events-none" style="animation: spin-slow 30s linear infinite reverse"></div>
-
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
-      <div class="max-w-4xl mx-auto text-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+      <div class="max-w-3xl mx-auto text-center">
 
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-mid border border-gold/20 text-sm text-gold/80 mb-8 fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-surface-mid border border-gold/20 text-xs sm:text-sm text-gold/80 mb-6 sm:mb-8 fade-up">
           <span>✦</span>
           <span>Software · Automação · Inteligência Empresarial</span>
           <span>✦</span>
         </div>
 
         <!-- Hero logo mark — grande -->
-        <div class="flex justify-center mb-8 fade-up" style="animation-delay:0.05s">
-          <svg width="90" height="90" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-glow">
+        <div class="flex justify-center mb-6 sm:mb-8 fade-up" style="animation-delay:0.05s">
+          <svg width="72" height="72" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-glow sm:w-[90px] sm:h-[90px]">
             <path d="M21 2L38.3 11.5V30.5L21 40L3.7 30.5V11.5Z" fill="url(#ftGrad)" opacity="0.18"/>
             <path d="M21 2L38.3 11.5V30.5L21 40L3.7 30.5V11.5Z" stroke="url(#ftGrad)" stroke-width="1" fill="none"/>
             <path d="M21 8L33.1 14.5V27.5L21 34L8.9 27.5V14.5Z" fill="url(#ftGrad)" opacity="0.10"/>
@@ -360,27 +380,27 @@
         </div>
 
         <!-- H1 -->
-        <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-white leading-[1.12] mb-6 fade-up" style="animation-delay:0.12s">
+        <h1 class="text-3xl sm:text-5xl lg:text-[3.4rem] font-black text-white leading-[1.12] mb-5 sm:mb-6 fade-up" style="animation-delay:0.12s">
           Tecnologia sob medida para empresas que crescem com
           <span class="gold-gradient-text"> inteligência</span> e
           <span class="green-gradient-text"> propósito.</span>
         </h1>
 
         <!-- Subtext -->
-        <p class="text-lg sm:text-xl text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed fade-up" style="animation-delay:0.22s">
+        <p class="text-base sm:text-lg text-white/55 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed fade-up" style="animation-delay:0.22s">
           Desenvolvemos softwares, automações e soluções digitais personalizadas — transformando processos manuais em operações simples, eficientes e escaláveis.
         </p>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20 fade-up" style="animation-delay:0.32s">
+        <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10 sm:mb-16 fade-up" style="animation-delay:0.32s">
           <a href="https://wa.me/5511926718676?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20diagn%C3%B3stico%20com%20a%20Fortunato%20Tech."
              target="_blank" rel="noopener"
-             class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-white gold-gradient shadow-xl shadow-gold/25 hover:shadow-gold/45 transition-shadow duration-300">
+             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-white gold-gradient shadow-xl shadow-gold/25 hover:shadow-gold/45 transition-shadow duration-300">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
             Solicitar diagnóstico gratuito
           </a>
           <a href="#produtos"
-             class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 transition-all duration-300">
+             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-semibold text-white border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 transition-all duration-300">
             <i class="fa-solid fa-box-open text-gold/70"></i>
             Ver nossos produtos
           </a>
@@ -388,21 +408,21 @@
 
         <!-- Stats -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-0 bg-surface-dark/70 border border-white/8 rounded-2xl overflow-hidden backdrop-blur-sm fade-up" style="animation-delay:0.42s">
-          <div class="stat-divider py-6 px-4 text-center">
-            <div class="text-3xl font-black shimmer-text mb-1">50+</div>
-            <div class="text-xs text-white/40 uppercase tracking-wider">Projetos</div>
+          <div class="stat-divider py-4 sm:py-6 px-3 sm:px-4 text-center">
+            <div class="text-2xl sm:text-3xl font-black shimmer-text mb-1">50+</div>
+            <div class="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">Projetos</div>
           </div>
-          <div class="stat-divider py-6 px-4 text-center">
-            <div class="text-3xl font-black shimmer-text mb-1">98%</div>
-            <div class="text-xs text-white/40 uppercase tracking-wider">Satisfação</div>
+          <div class="stat-divider py-4 sm:py-6 px-3 sm:px-4 text-center">
+            <div class="text-2xl sm:text-3xl font-black shimmer-text mb-1">98%</div>
+            <div class="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">Satisfação</div>
           </div>
-          <div class="stat-divider py-6 px-4 text-center">
-            <div class="text-3xl font-black shimmer-text mb-1">5</div>
-            <div class="text-xs text-white/40 uppercase tracking-wider">Anos mercado</div>
+          <div class="stat-divider py-4 sm:py-6 px-3 sm:px-4 text-center">
+            <div class="text-2xl sm:text-3xl font-black shimmer-text mb-1">5</div>
+            <div class="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">Anos mercado</div>
           </div>
-          <div class="py-6 px-4 text-center">
-            <div class="text-3xl font-black shimmer-text mb-1">24h</div>
-            <div class="text-xs text-white/40 uppercase tracking-wider">Suporte</div>
+          <div class="py-4 sm:py-6 px-3 sm:px-4 text-center">
+            <div class="text-2xl sm:text-3xl font-black shimmer-text mb-1">24h</div>
+            <div class="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">Suporte</div>
           </div>
         </div>
 
@@ -515,7 +535,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2">
 
           <!-- Visual Side -->
-          <div class="relative bg-gradient-to-br from-[#0d1a14] to-[#1a2d20] p-8 flex flex-col items-center justify-center min-h-[320px] overflow-hidden">
+          <div class="relative bg-gradient-to-br from-[#0d1a14] to-[#1a2d20] p-8 flex flex-col items-center justify-center min-h-[240px] lg:min-h-[320px] overflow-hidden">
 
             <!-- Background glow -->
             <div class="absolute inset-0 opacity-30" style="background:radial-gradient(ellipse at 50% 50%, #345448 0%, transparent 70%)"></div>
@@ -628,10 +648,10 @@
       </div>
 
       <!-- Clientes grid -->
-      <div class="flex flex-wrap justify-center gap-8 items-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
 
         <!-- Essense Imóveis -->
-        <div class="client-card rounded-2xl p-8 flex flex-col items-center gap-4 w-72">
+        <div class="client-card rounded-2xl p-6 sm:p-8 flex flex-col items-center gap-4">
           <!-- Logo real da Essense -->
           <div class="w-48 h-20 flex items-center justify-center">
             <img
@@ -664,7 +684,7 @@
         </div>
 
         <!-- Genoma Consultoria -->
-        <div class="client-card rounded-2xl p-8 flex flex-col items-center gap-4 w-72">
+        <div class="client-card rounded-2xl p-6 sm:p-8 flex flex-col items-center gap-4">
           <div class="w-48 h-20 flex items-center justify-center">
             <img
               src="https://www.genomaconsultoria.com.br/images/logo-genoma-colorido.png"
@@ -697,7 +717,7 @@
         </div>
 
         <!-- Placeholder: Sua empresa aqui -->
-        <div class="rounded-2xl p-8 flex flex-col items-center gap-4 w-72 border-2 border-dashed border-gray-200 bg-gray-50/50 group cursor-pointer hover:border-gold/40 transition-colors duration-300">
+        <div class="rounded-2xl p-6 sm:p-8 flex flex-col items-center gap-4 border-2 border-dashed border-gray-200 bg-gray-50/50 group cursor-pointer hover:border-gold/40 transition-colors duration-300">
           <div class="w-20 h-20 rounded-2xl bg-gray-100 group-hover:bg-gold/10 flex items-center justify-center transition-colors duration-300">
             <i class="fa-solid fa-plus text-gray-300 group-hover:text-gold/60 text-2xl transition-colors duration-300"></i>
           </div>
