@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fortunato Tech Soluções | Software, Automação e Inteligência Empresarial</title>
+  <meta name="description" content="Desenvolvemos softwares, automações e soluções digitais personalizadas para transformar processos manuais em operações inteligentes, simples e eficientes." />
+  <meta name="keywords" content="software personalizado, automação de processos, sistemas de gestão, dashboard, inteligência artificial, tecnologia empresarial" />
+  <meta property="og:title" content="Fortunato Tech Soluções" />
+  <meta property="og:description" content="Tecnologia sob medida para empresas que querem crescer." />
+  <meta property="og:type" content="website" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-dark': '#0f1117',
+            'tech-green': '#1a6b4a',
+            'gold': '#b48860',
+            'gold-light': '#d4a96a',
+            'surface-dark': '#161b27',
+            'surface-mid': '#1e2a40',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(40px); }
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes rotateCircuit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .float { animation: float 6s ease-in-out infinite; }
+    .float-delay { animation: float 6s ease-in-out infinite 2s; }
+    .float-delay-2 { animation: float 6s ease-in-out infinite 4s; }
+    .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+
+    .hero-gradient {
+      background: radial-gradient(ellipse at 20% 50%, rgba(26,107,74,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(180,136,96,0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 80%, rgba(30,42,64,0.6) 0%, transparent 70%),
+                  #0f1117;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(26,107,74,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,107,74,0.07) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .gold-gradient {
+      background: linear-gradient(135deg, #b48860, #d4a96a, #b48860);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #b48860, #d4a96a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .green-gradient-text {
+      background: linear-gradient(135deg, #1a6b4a, #2d9e72);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .gradient-border {
+      position: relative;
+      background: #161b27;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(180,136,96,0.5), rgba(26,107,74,0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .stat-divider:not(:last-child) {
+      border-right: 1px solid rgba(180,136,96,0.2);
+    }
+
+    .timeline-line {
+      background: linear-gradient(90deg, #1a6b4a, #b48860);
+    }
+
+    .circuit-node {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(135deg, #0f1117 0%, #161b27 40%, #1a2a1a 70%, #0f1117 100%);
+      background-size: 300% 300%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+    }
+    .whatsapp-btn:hover {
+      background: linear-gradient(135deg, #2de673, #16a98c);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-line { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-primary-dark text-white font-sans" x-data="{ mobileOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 50)">
+
+  <!-- ============================================================ HEADER ============================================================ -->
+  <header
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-blur"
+    :class="scrolled ? 'bg-primary-dark/90 shadow-xl shadow-black/40' : 'bg-transparent'"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-18 py-4">
+
+        <!-- Logo -->
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-lg bg-surface-mid flex items-center justify-center border border-tech-green/30 group-hover:border-gold/50 transition-colors duration-300">
+            <i class="fa-solid fa-microchip text-tech-green text-lg group-hover:text-gold transition-colors duration-300"></i>
+          </div>
+          <div class="leading-none">
+            <div class="flex items-baseline gap-1">
+              <span class="text-xl font-bold text-white tracking-wide">FORTUNATO</span>
+              <span class="text-xl font-bold gold-gradient-text tracking-wide">TECH</span>
+            </div>
+            <div class="text-xs text-white/40 tracking-[0.2em] uppercase">Soluções</div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+          <a href="#inicio" class="text-sm text-white/70 hover:text-white transition-colors duration-200">Início</a>
+          <a href="#solucoes" class="text-sm text-white/70 hover:text-white transition-colors duration-200">Soluções</a>
+          <a href="#sobre" class="text-sm text-white/70 hover:text-white transition-colors duration-200">Sobre</a>
+          <a href="#diferenciais" class="text-sm text-white/70 hover:text-white transition-colors duration-200">Diferenciais</a>
+          <a href="#contato" class="text-sm text-white/70 hover:text-white transition-colors duration-200">Contato</a>
+        </nav>
+
+        <!-- CTA + Mobile Toggle -->
+        <div class="flex items-center gap-4">
+          <a
+            href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Fortunato%20Tech."
+            target="_blank"
+            rel="noopener"
+            class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white gold-gradient shadow-lg shadow-gold/20 hover:shadow-gold/40 transition-shadow duration-300"
+          >
+            <i class="fa-solid fa-comments text-xs"></i>
+            Fale com um especialista
+          </a>
+
+          <!-- Hamburger -->
+          <button
+            class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-surface-mid border border-white/10 hover:border-white/20 transition-colors"
+            @click="mobileOpen = !mobileOpen"
+            :aria-expanded="mobileOpen"
+          >
+            <i class="fa-solid text-white/80" :class="mobileOpen ? 'fa-xmark' : 'fa-bars'"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        class="md:hidden overflow-hidden transition-all duration-300"
+        :class="mobileOpen ? 'max-h-96 pb-6' : 'max-h-0'"
+      >
+        <div class="flex flex-col gap-1 border-t border-white/10 pt-4">
+          <a @click="mobileOpen=false" href="#inicio" class="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Início</a>
+          <a @click="mobileOpen=false" href="#solucoes" class="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Soluções</a>
+          <a @click="mobileOpen=false" href="#sobre" class="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Sobre</a>
+          <a @click="mobileOpen=false" href="#diferenciais" class="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Diferenciais</a>
+          <a @click="mobileOpen=false" href="#contato" class="px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contato</a>
+          <div class="mt-2 px-4">
+            <a
+              href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Fortunato%20Tech."
+              target="_blank"
+              rel="noopener"
+              class="flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-white gold-gradient w-full"
+            >
+              <i class="fa-solid fa-comments text-xs"></i>
+              Fale com um especialista
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ HERO ============================================================ -->
+  <section id="inicio" class="relative min-h-screen flex items-center hero-gradient grid-bg overflow-hidden">
+
+    <!-- Floating decorative orbs -->
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-tech-green/10 blur-3xl pulse-glow pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-56 h-56 rounded-full bg-gold/8 blur-3xl pulse-glow pointer-events-none" style="animation-delay:1.5s"></div>
+    <div class="absolute top-1/2 right-1/3 w-40 h-40 rounded-full bg-surface-mid/80 blur-2xl float pointer-events-none"></div>
+
+    <!-- Small floating tech circles -->
+    <div class="absolute top-20 right-20 w-4 h-4 rounded-full border border-gold/30 float" style="animation-delay:0.5s"></div>
+    <div class="absolute top-40 left-16 w-3 h-3 rounded-full bg-tech-green/40 float-delay"></div>
+    <div class="absolute bottom-32 left-1/4 w-5 h-5 rounded-full border border-tech-green/20 float-delay-2"></div>
+    <div class="absolute bottom-20 right-1/3 w-2 h-2 rounded-full bg-gold/50 float"></div>
+    <div class="absolute top-1/3 right-12 w-6 h-6 rounded-full border-2 border-surface-mid float-delay"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+      <div class="max-w-4xl mx-auto text-center">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-mid border border-gold/20 text-sm text-gold/80 mb-8 fade-up">
+          <span>✦</span>
+          <span>Tecnologia · Automação · Inteligência</span>
+          <span>✦</span>
+        </div>
+
+        <!-- H1 -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 fade-up" style="animation-delay:0.1s">
+          Tecnologia sob medida para empresas que querem crescer com mais
+          <span class="gold-gradient-text"> controle, inteligência</span> e
+          <span class="green-gradient-text"> produtividade.</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed fade-up" style="animation-delay:0.2s">
+          Desenvolvemos softwares, automações e soluções digitais personalizadas para transformar processos manuais em operações inteligentes, simples e eficientes.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20 fade-up" style="animation-delay:0.3s">
+          <a
+            href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20diagn%C3%B3stico%20com%20a%20Fortunato%20Tech."
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white gold-gradient shadow-xl shadow-gold/25 hover:shadow-gold/45 transition-shadow duration-300"
+          >
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            Solicitar diagnóstico
+          </a>
+          <a
+            href="#solucoes"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 transition-all duration-300"
+          >
+            <i class="fa-solid fa-arrow-right"></i>
+            Conhecer soluções
+          </a>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-0 bg-surface-dark/60 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm fade-up" style="animation-delay:0.4s">
+          <div class="stat-divider py-6 px-4 text-center">
+            <div class="text-3xl font-bold gold-gradient-text mb-1">50+</div>
+            <div class="text-xs text-white/50 uppercase tracking-wider">Projetos</div>
+          </div>
+          <div class="stat-divider py-6 px-4 text-center">
+            <div class="text-3xl font-bold gold-gradient-text mb-1">98%</div>
+            <div class="text-xs text-white/50 uppercase tracking-wider">Satisfação</div>
+          </div>
+          <div class="stat-divider py-6 px-4 text-center">
+            <div class="text-3xl font-bold gold-gradient-text mb-1">5</div>
+            <div class="text-xs text-white/50 uppercase tracking-wider">Anos de experiência</div>
+          </div>
+          <div class="py-6 px-4 text-center">
+            <div class="text-3xl font-bold gold-gradient-text mb-1">24h</div>
+            <div class="text-xs text-white/50 uppercase tracking-wider">Suporte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-primary-dark to-transparent pointer-events-none"></div>
+  </section>
+
+  <!-- ============================================================ SOLUÇÕES ============================================================ -->
+  <section id="solucoes" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-tech-green/10 border border-tech-green/20 text-sm font-medium text-tech-green mb-4">
+          <i class="fa-solid fa-layer-group text-xs"></i>
+          O que fazemos
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Soluções que transformam<br class="hidden sm:block" /> sua operação</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">Cada solução é desenvolvida com foco no seu negócio — sem desperdício, sem complexidade desnecessária.</p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <div class="card-hover rounded-2xl p-7 bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl bg-primary-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-desktop text-tech-green text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Sistemas Personalizados</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Desenvolvemos do zero sistemas sob medida para sua operação, com funcionalidades exatas para o seu negócio.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-tech-green text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-hover rounded-2xl p-7 bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl bg-primary-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-chart-bar text-gold text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Softwares de Gestão</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Controle completo de processos, equipes, metas e resultados em uma plataforma integrada e intuitiva.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-tech-green text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-hover gradient-border rounded-2xl p-7 group">
+          <div class="w-12 h-12 rounded-xl bg-tech-green/10 border border-tech-green/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-gears text-tech-green text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">Automação de Processos</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Elimine tarefas repetitivas e reduza erros com automações inteligentes que trabalham por você.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-gold text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card-hover gradient-border rounded-2xl p-7 group">
+          <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-chart-line text-gold text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">Dashboards e Indicadores</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Visualize dados em tempo real com painéis visuais que facilitam a tomada de decisão estratégica.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-gold text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card-hover rounded-2xl p-7 bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl bg-primary-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-link text-tech-green text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Integrações entre Plataformas</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Conectamos seus sistemas existentes para que os dados fluam automaticamente sem retrabalho.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-tech-green text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card-hover rounded-2xl p-7 bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl bg-primary-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-robot text-gold text-lg"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Soluções com IA</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Incorporamos inteligência artificial nos seus processos para análises preditivas e automação avançada.</p>
+          <div class="mt-5 flex items-center gap-1.5 text-tech-green text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span>Saiba mais</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ SOBRE ============================================================ -->
+  <section id="sobre" class="py-24 bg-surface-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Text Left -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-sm font-medium text-gold mb-6">
+            <i class="fa-solid fa-building-columns text-xs"></i>
+            Quem somos
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+            Aproximando empresas da tecnologia de forma
+            <span class="gold-gradient-text"> prática e estratégica</span>
+          </h2>
+          <p class="text-white/60 leading-relaxed mb-6">
+            A Fortunato Tech Soluções nasceu com o propósito de aproximar empresas da tecnologia de forma prática, estratégica e acessível. Unimos visão de negócios, automação e desenvolvimento de software para criar soluções que resolvem problemas reais da operação.
+          </p>
+          <p class="text-white/60 leading-relaxed mb-8">
+            Acreditamos que tecnologia deve ser simples, eficiente e adaptada à realidade de cada empresa — não o contrário. Por isso, cada projeto começa com uma escuta atenta das suas dores e objetivos.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div class="text-center p-4 rounded-xl bg-surface-mid border border-white/5">
+              <div class="text-2xl font-bold gold-gradient-text">50+</div>
+              <div class="text-xs text-white/40 mt-1">Projetos entregues</div>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-surface-mid border border-white/5">
+              <div class="text-2xl font-bold gold-gradient-text">5</div>
+              <div class="text-xs text-white/40 mt-1">Anos no mercado</div>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-surface-mid border border-white/5">
+              <div class="text-2xl font-bold gold-gradient-text">98%</div>
+              <div class="text-xs text-white/40 mt-1">Clientes satisfeitos</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Right — Circuit Board Aesthetic -->
+        <div class="flex items-center justify-center">
+          <div class="relative w-full max-w-md aspect-square">
+
+            <!-- Outer ring -->
+            <div class="absolute inset-0 rounded-full border border-tech-green/10"></div>
+            <div class="absolute inset-4 rounded-full border border-gold/8 float"></div>
+            <div class="absolute inset-10 rounded-full border border-tech-green/15 float-delay"></div>
+
+            <!-- Center piece -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-40 h-40 rounded-2xl bg-surface-mid border border-tech-green/20 flex items-center justify-center shadow-2xl shadow-tech-green/10 float-delay-2">
+                <i class="fa-solid fa-microchip text-6xl text-tech-green/70"></i>
+              </div>
+            </div>
+
+            <!-- Orbiting nodes -->
+            <div class="absolute top-8 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-surface-mid border border-gold/40 flex items-center justify-center circuit-node">
+              <i class="fa-solid fa-bolt text-gold text-xs"></i>
+            </div>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-surface-mid border border-tech-green/40 flex items-center justify-center circuit-node" style="animation-delay:0.5s">
+              <i class="fa-solid fa-database text-tech-green text-xs"></i>
+            </div>
+            <div class="absolute left-8 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-surface-mid border border-gold/30 flex items-center justify-center circuit-node" style="animation-delay:1s">
+              <i class="fa-solid fa-wifi text-gold text-xs"></i>
+            </div>
+            <div class="absolute right-8 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-surface-mid border border-tech-green/30 flex items-center justify-center circuit-node" style="animation-delay:1.5s">
+              <i class="fa-solid fa-code text-tech-green text-xs"></i>
+            </div>
+            <div class="absolute top-16 left-16 w-6 h-6 rounded-full bg-tech-green/20 border border-tech-green/30 circuit-node" style="animation-delay:0.3s"></div>
+            <div class="absolute top-16 right-16 w-6 h-6 rounded-full bg-gold/20 border border-gold/30 circuit-node" style="animation-delay:0.8s"></div>
+            <div class="absolute bottom-16 left-16 w-6 h-6 rounded-full bg-gold/15 border border-gold/25 circuit-node" style="animation-delay:1.3s"></div>
+            <div class="absolute bottom-16 right-16 w-6 h-6 rounded-full bg-tech-green/15 border border-tech-green/25 circuit-node" style="animation-delay:0.6s"></div>
+
+            <!-- Connector lines (SVG) -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="200" y1="40" x2="200" y2="130" stroke="rgba(26,107,74,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="200" y1="270" x2="200" y2="360" stroke="rgba(26,107,74,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="40" y1="200" x2="130" y2="200" stroke="rgba(180,136,96,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="270" y1="200" x2="360" y2="200" stroke="rgba(180,136,96,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="80" y1="80" x2="150" y2="150" stroke="rgba(26,107,74,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="320" y1="80" x2="250" y2="150" stroke="rgba(180,136,96,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="80" y1="320" x2="150" y2="250" stroke="rgba(180,136,96,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+              <line x1="320" y1="320" x2="250" y2="250" stroke="rgba(26,107,74,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+            </svg>
+
+            <!-- Glow -->
+            <div class="absolute inset-1/4 rounded-full bg-tech-green/5 blur-2xl pulse-glow pointer-events-none"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ DIFERENCIAIS ============================================================ -->
+  <section id="diferenciais" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-tech-green/10 border border-tech-green/20 text-sm font-medium text-tech-green mb-4">
+          <i class="fa-solid fa-star text-xs"></i>
+          Por que nos escolher
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Nossos diferenciais</h2>
+        <p class="text-lg text-gray-500 max-w-xl mx-auto">O que nos torna diferentes de uma empresa de tecnologia convencional.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-bullseye text-gold text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Soluções Sob Medida</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Desenvolvemos cada projeto do zero, adaptado exatamente à realidade e necessidades do seu negócio.</p>
+        </div>
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-brain text-tech-green text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Visão Estratégica de Negócio</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Unimos tecnologia e gestão para propor soluções que fazem sentido no contexto real da sua empresa.</p>
+        </div>
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-lightbulb text-gold text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Interface Simples e Intuitiva</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Criamos sistemas fáceis de usar, sem necessidade de treinamento extenso para sua equipe.</p>
+        </div>
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-bolt text-tech-green text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Foco em Produtividade</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Cada funcionalidade é pensada para eliminar fricções, economizar tempo e aumentar o rendimento da equipe.</p>
+        </div>
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-arrows-rotate text-gold text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Integração com Processos Existentes</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Não substituímos o que funciona — integramos e evoluímos a infraestrutura que você já tem.</p>
+        </div>
+
+        <div class="card-hover p-7 rounded-2xl bg-gray-50 border border-gray-100 group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-dark mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-rocket text-tech-green text-xl"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 mb-2">Tecnologia Aplicada à Realidade</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Sem jargão desnecessário. Entregamos soluções que qualquer empresa pode adotar e colher resultados imediatos.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ COMO TRABALHAMOS ============================================================ -->
+  <section class="py-24 bg-primary-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-mid border border-white/10 text-sm font-medium text-white/60 mb-4">
+          <i class="fa-solid fa-map text-xs text-gold"></i>
+          Metodologia
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Como trabalhamos</h2>
+        <p class="text-lg text-white/50 max-w-xl mx-auto">Um processo claro, colaborativo e focado em resultados reais para o seu negócio.</p>
+      </div>
+
+      <!-- Timeline Desktop -->
+      <div class="hidden md:block relative">
+        <!-- Line -->
+        <div class="absolute top-10 left-[10%] right-[10%] h-px timeline-line opacity-40"></div>
+
+        <div class="grid grid-cols-5 gap-4 relative z-10">
+
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-surface-mid border border-white/10 group-hover:border-gold/40 flex flex-col items-center justify-center mb-5 transition-colors duration-300 shadow-lg">
+              <span class="text-xs font-bold text-gold/60 mb-1">01</span>
+              <i class="fa-solid fa-magnifying-glass text-white/60 text-xl group-hover:text-gold transition-colors duration-300"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-2">Diagnóstico do processo</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Entendemos sua operação, gargalos e objetivos em profundidade.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-surface-mid border border-white/10 group-hover:border-tech-green/40 flex flex-col items-center justify-center mb-5 transition-colors duration-300 shadow-lg">
+              <span class="text-xs font-bold text-tech-green/60 mb-1">02</span>
+              <i class="fa-solid fa-map-pin text-white/60 text-xl group-hover:text-tech-green transition-colors duration-300"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-2">Mapeamento das necessidades</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Definimos escopo, funcionalidades e prioridades junto com você.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-surface-mid border border-white/10 group-hover:border-gold/40 flex flex-col items-center justify-center mb-5 transition-colors duration-300 shadow-lg">
+              <span class="text-xs font-bold text-gold/60 mb-1">03</span>
+              <i class="fa-solid fa-code text-white/60 text-xl group-hover:text-gold transition-colors duration-300"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-2">Desenvolvimento da solução</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Construímos com atualizações constantes e feedback contínuo.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-surface-mid border border-white/10 group-hover:border-tech-green/40 flex flex-col items-center justify-center mb-5 transition-colors duration-300 shadow-lg">
+              <span class="text-xs font-bold text-tech-green/60 mb-1">04</span>
+              <i class="fa-solid fa-flask text-white/60 text-xl group-hover:text-tech-green transition-colors duration-300"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-2">Testes e ajustes</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Validamos cada detalhe antes de colocar no ar.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-surface-mid border border-white/10 group-hover:border-gold/40 flex flex-col items-center justify-center mb-5 transition-colors duration-300 shadow-lg">
+              <span class="text-xs font-bold text-gold/60 mb-1">05</span>
+              <i class="fa-solid fa-rocket text-white/60 text-xl group-hover:text-gold transition-colors duration-300"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-2">Implantação e acompanhamento</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Implementamos e permanecemos ao seu lado no pós-entrega.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Timeline Mobile (Vertical) -->
+      <div class="md:hidden flex flex-col gap-0">
+
+        <div class="flex gap-5 pb-8">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-surface-mid border border-gold/30 flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-xs font-bold text-gold/60 leading-none">01</span>
+              <i class="fa-solid fa-magnifying-glass text-white/60 text-sm mt-0.5"></i>
+            </div>
+            <div class="w-px flex-1 bg-white/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-6">
+            <h4 class="text-sm font-bold text-white mb-1">Diagnóstico do processo</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Entendemos sua operação, gargalos e objetivos em profundidade.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5 pb-8">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-surface-mid border border-tech-green/30 flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-xs font-bold text-tech-green/60 leading-none">02</span>
+              <i class="fa-solid fa-map-pin text-white/60 text-sm mt-0.5"></i>
+            </div>
+            <div class="w-px flex-1 bg-white/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-6">
+            <h4 class="text-sm font-bold text-white mb-1">Mapeamento das necessidades</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Definimos escopo, funcionalidades e prioridades junto com você.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5 pb-8">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-surface-mid border border-gold/30 flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-xs font-bold text-gold/60 leading-none">03</span>
+              <i class="fa-solid fa-code text-white/60 text-sm mt-0.5"></i>
+            </div>
+            <div class="w-px flex-1 bg-white/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-6">
+            <h4 class="text-sm font-bold text-white mb-1">Desenvolvimento da solução</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Construímos com atualizações constantes e feedback contínuo.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5 pb-8">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-surface-mid border border-tech-green/30 flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-xs font-bold text-tech-green/60 leading-none">04</span>
+              <i class="fa-solid fa-flask text-white/60 text-sm mt-0.5"></i>
+            </div>
+            <div class="w-px flex-1 bg-white/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-6">
+            <h4 class="text-sm font-bold text-white mb-1">Testes e ajustes</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Validamos cada detalhe antes de colocar no ar.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-xl bg-surface-mid border border-gold/30 flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-xs font-bold text-gold/60 leading-none">05</span>
+              <i class="fa-solid fa-rocket text-white/60 text-sm mt-0.5"></i>
+            </div>
+          </div>
+          <div class="pt-1">
+            <h4 class="text-sm font-bold text-white mb-1">Implantação e acompanhamento</h4>
+            <p class="text-xs text-white/40 leading-relaxed">Implementamos e permanecemos ao seu lado no pós-entrega.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA ============================================================ -->
+  <section class="py-24 cta-gradient relative overflow-hidden">
+
+    <!-- Background elements -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-tech-green/5 blur-3xl pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-gold/5 blur-2xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-surface-mid/50 blur-2xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-sm font-medium text-red-400 mb-8">
+        <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+        Atenção para sua empresa
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+        Sua empresa ainda depende de planilhas, retrabalho e processos manuais?
+      </h2>
+
+      <p class="text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
+        A Fortunato Tech Soluções pode transformar sua operação com tecnologia simples, eficiente e feita sob medida. Chega de perder tempo e dinheiro com processos que podem ser automatizados.
+      </p>
+
+      <a
+        href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20modernizar%20minha%20empresa%20com%20a%20Fortunato%20Tech."
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-3 px-10 py-5 rounded-2xl text-lg font-bold text-white gold-gradient shadow-2xl shadow-gold/30 hover:shadow-gold/50 transition-shadow duration-300 group"
+      >
+        <i class="fa-brands fa-whatsapp text-xl"></i>
+        Quero modernizar minha empresa
+        <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1 transition-transform duration-200"></i>
+      </a>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-white/40">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-tech-green"></i> Diagnóstico gratuito</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-tech-green"></i> Sem compromisso</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-tech-green"></i> Resposta em até 24h</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ FOOTER ============================================================ -->
+  <footer id="contato" class="bg-[#090c12] border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="#inicio" class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-surface-mid flex items-center justify-center border border-tech-green/20">
+              <i class="fa-solid fa-microchip text-tech-green text-lg"></i>
+            </div>
+            <div class="leading-none">
+              <div class="flex items-baseline gap-1">
+                <span class="text-lg font-bold text-white tracking-wide">FORTUNATO</span>
+                <span class="text-lg font-bold gold-gradient-text">TECH</span>
+              </div>
+              <div class="text-xs text-white/30 tracking-[0.2em] uppercase">Soluções</div>
+            </div>
+          </a>
+          <p class="text-sm text-white/40 leading-relaxed mb-5">
+            Tecnologia sob medida para empresas que querem crescer com mais controle, inteligência e produtividade.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-surface-mid border border-white/10 hover:border-green-500/40 flex items-center justify-center text-white/50 hover:text-green-400 transition-colors duration-200">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg bg-surface-mid border border-white/10 hover:border-blue-500/40 flex items-center justify-center text-white/50 hover:text-blue-400 transition-colors duration-200">
+              <i class="fa-brands fa-linkedin-in text-sm"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg bg-surface-mid border border-white/10 hover:border-pink-500/40 flex items-center justify-center text-white/50 hover:text-pink-400 transition-colors duration-200">
+              <i class="fa-brands fa-instagram text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-5">Links rápidos</h4>
+          <ul class="space-y-3">
+            <li><a href="#inicio" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-tech-green/60"></i>Início</a></li>
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-tech-green/60"></i>Soluções</a></li>
+            <li><a href="#sobre" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-tech-green/60"></i>Sobre</a></li>
+            <li><a href="#diferenciais" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-tech-green/60"></i>Diferenciais</a></li>
+            <li><a href="#contato" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-tech-green/60"></i>Contato</a></li>
+          </ul>
+        </div>
+
+        <!-- Serviços -->
+        <div>
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-5">Serviços</h4>
+          <ul class="space-y-3">
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-gold/60"></i>Sistemas Personalizados</a></li>
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-gold/60"></i>Softwares de Gestão</a></li>
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-gold/60"></i>Automação de Processos</a></li>
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-gold/60"></i>Dashboards e Indicadores</a></li>
+            <li><a href="#solucoes" class="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-gold/60"></i>Soluções com IA</a></li>
+          </ul>
+        </div>
+
+        <!-- Contato -->
+        <div>
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-5">Contato</h4>
+          <ul class="space-y-4">
+            <li>
+              <a
+                href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Fortunato%20Tech."
+                target="_blank"
+                rel="noopener"
+                class="flex items-start gap-3 group"
+              >
+                <div class="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/20 transition-colors duration-200">
+                  <i class="fa-brands fa-whatsapp text-green-400 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-white/30 mb-0.5">WhatsApp</div>
+                  <div class="text-sm text-white/60 group-hover:text-white transition-colors duration-200">+55 (11) 99999-9999</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:contato@fortunatotech.com.br" class="flex items-start gap-3 group">
+                <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors duration-200">
+                  <i class="fa-solid fa-envelope text-gold text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-white/30 mb-0.5">E-mail</div>
+                  <div class="text-sm text-white/60 group-hover:text-white transition-colors duration-200">contato@fortunatotech.com.br</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-surface-mid border border-white/10 flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-clock text-white/40 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-white/30 mb-0.5">Atendimento</div>
+                  <div class="text-sm text-white/60">Seg–Sex, 9h–18h</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-white/30 text-center sm:text-left">
+          © 2026 Fortunato Tech Soluções · Todos os direitos reservados
+        </p>
+        <div class="flex items-center gap-1 text-xs text-white/20">
+          <i class="fa-solid fa-shield-halved text-tech-green/40"></i>
+          <span>Desenvolvido com tecnologia de ponta</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>
